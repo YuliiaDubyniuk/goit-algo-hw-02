@@ -27,14 +27,17 @@ def process_request():
             current_request = q.get()
             print(f"{current_request} closed")
     else:
-        print(f"Queue is empty.")
+        print(f"Queue is empty. Service center stopped.")
+        return "Done"
 
 
 print("Service center started. Press Ctrl+C to stop.")
 try:
     while True:
         generate_request()
-        process_request()
+        result = process_request()
+        if result == "Done":
+            break
         time.sleep(1)
 except KeyboardInterrupt:
     print("\nService center stopped.")
